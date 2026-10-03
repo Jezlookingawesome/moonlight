@@ -10,6 +10,7 @@ intents.message_content = True
 intents.members = False
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+bot.remove_command("help")
 
 MOON_EMOJI = "☾"
 HELP_COLOR = discord.Color.from_rgb(180, 200, 255)  # soft moonlight blue
