@@ -475,7 +475,7 @@ async def on_message(message):
             conv_exchanges[message.guild.id] = conv_exchanges.get(message.guild.id, 0)
         conv_last_speaker[message.guild.id] = "starlight"
         asyncio.create_task(moonlight_turn(message.channel, message))
-            return
+        return
 
     await bot.process_commands(message)
 
