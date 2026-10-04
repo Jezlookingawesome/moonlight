@@ -304,7 +304,7 @@ async def generate_architect_line(speaker: str, context_messages: list) -> str:
                 messages=messages,
                 max_tokens=300,
                 reasoning_effort="low",
-                temperature=0.9,
+                temperature=0.75,
             )
             print(f"GROQ DEBUG: response={resp.choices[0].message.content[:100]!r}")
             return resp
