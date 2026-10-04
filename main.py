@@ -326,6 +326,15 @@ async def conversation_opener(guild, channel):
         "Starlight's paintings",
         "the nature of being an Architect",
         "what humans are like",
+        "the Figure's persistence on following the player into the Mines",
+        "the Outdoors — ask what's in there"
+        "the Archives and its dangers"
+        "the Archives and its vibe"
+        "the Nest in the Mines"
+        "Seek's aggression — wonder what are its true goals"
+        "worry about the player's wellbeing"
+        "ask about Starlight's creations"
+        "ask about Starlight's future creations (subfloors, entities, items)"
         "the entities and how they behave",
     ]
     topic = random.choice(topics)
