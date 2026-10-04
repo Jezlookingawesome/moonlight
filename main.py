@@ -278,7 +278,8 @@ async def generate_architect_line(speaker: str, context_messages: list) -> str:
             resp = groq_client.chat.completions.create(
                 model=ARCHITECT_MODEL,
                 messages=messages,
-                max_tokens=80,
+                max_tokens=300,
+                reasoning_effort="low",
                 temperature=0.9,
             )
             print(f"GROQ DEBUG: response={resp.choices[0].message.content[:100]!r}")
