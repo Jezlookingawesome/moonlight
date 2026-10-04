@@ -12,7 +12,12 @@ from groq import Groq
 
 TOKEN = os.getenv("TOKEN")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-groq_client = Groq(api_key=GROQ_API_KEY) if GROQ_API_KEY else None
+if GROQ_API_KEY:
+    print(f"Groq key loaded (starts with: {GROQ_API_KEY[:8]}...)")
+    groq_client = Groq(api_key=GROQ_API_KEY)
+else:
+    print("WARNING: GROQ_API_KEY is not set — Groq calls will fail!")
+    groq_client = None
 
 intents = discord.Intents.default()
 intents.message_content = True
