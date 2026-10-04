@@ -273,12 +273,19 @@ async def generate_architect_line(speaker: str, context_messages: list) -> str:
         messages.append({"role": role, "content": content})
 
     def _call():
-        return groq_client.chat.completions.create(
+    print(f"GROQ DEBUG: model={ARCHITECT_MODEL}, msgs={len(messages)}")
+    try:
+        resp = groq_client.chat.completions.create(
             model=ARCHITECT_MODEL,
             messages=messages,
             max_tokens=80,
             temperature=0.9,
         )
+        print(f"GROQ DEBUG: response={resp.choices[0].message.content[:100]!r}")
+        return resp
+    except Exception as e:
+        print(f"GROQ RAW ERROR: {type(e).__name__}: {e}")
+        raise
 
     try:
         loop = asyncio.get_event_loop()
