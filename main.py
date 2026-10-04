@@ -416,6 +416,9 @@ async def moonlight_turn(channel, incoming_message):
 
     if not line:
         return
+    if not conv_active.get(guild.id):
+        return
+    
 
     use_reply = incoming_message.content.strip().endswith("?")
     try:
