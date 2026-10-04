@@ -509,7 +509,7 @@ async def on_message(message):
         asyncio.create_task(moonlight_turn(message.channel, message))
         return
 
-await bot.process_commands(message)
+    await bot.process_commands(message)
 
 
 @bot.command()
