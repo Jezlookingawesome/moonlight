@@ -304,6 +304,8 @@ async def generate_architect_line(speaker: str, context_messages: list) -> str:
         line = line.replace("\n", " ").strip()
         if line.startswith('"') and line.endswith('"'):
             line = line[1:-1]
+        import re as _re
+        line = _re.sub(r'^(<a?:\w+:\d+>\s*)+', '', line).strip()
         return line[:400]
     except Exception as e:
         print(f"Groq error for {speaker}: {e}")
