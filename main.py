@@ -33,7 +33,7 @@ CRUCIFIXION_GIF_URL = "https://raw.githubusercontent.com/Jezlookingawesome/moonl
 START_TIME = time.time()
 
 ARCHITECTS_CHANNEL_NAME = "the-architects"
-ARCHITECT_MODEL = "llama-3.3-70b-versatile"
+ARCHITECT_MODEL = "openai/gpt-oss-120b"
 ARCHITECT_MESSAGE_DELAY = 2
 ARCHITECT_MAX_EXCHANGES = 20
 ARCHITECT_TIMEOUT = 5 * 60
