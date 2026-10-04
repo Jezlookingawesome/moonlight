@@ -459,8 +459,14 @@ async def on_message(message):
         return
 
     if message.author.bot and message.guild and message.channel.name == ARCHITECTS_CHANNEL_NAME:
+        # Auto-engage if another bot just spoke — likely Starlight
+        if not conv_active.get(message.guild.id):
+            conv_active[message.guild.id] = True
+            conv_started_at[message.guild.id] = time.time()
+            conv_exchanges[message.guild.id] = conv_exchanges.get(message.guild.id, 0)
+        conv_last_speaker[message.guild.id] = "starlight"
         asyncio.create_task(moonlight_turn(message.channel, message))
-        return
+            return
 
     await bot.process_commands(message)
 
