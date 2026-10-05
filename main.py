@@ -23,7 +23,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="moon!", intents=intents)
 bot.remove_command("help")
 
 MOONLIGHT_EMOJI = "<:moonlight:1556048220671447132>"
@@ -60,26 +60,26 @@ note_counters = {}
 
 HELP_LINES = [
     ("Moderation", [
-        ("!purge [amount]", "deletes up to 200 messages from users only"),
-        ("!purgeall [amount]", "deletes up to 200 messages from everyone"),
+        ("moon!purge [amount]", "deletes up to 200 messages from users only"),
+        ("moon!purgeall [amount]", "deletes up to 200 messages from everyone"),
     ]),
     ("Punishment", [
-        ("!crucifixion @user [reason]", "kicks an user"),
-        ("!banish @user [reason]", "bans an user"),
+        ("moon!crucifixion @user [reason]", "kicks an user"),
+        ("moon!banish @user [reason]", "bans an user"),
     ]),
     ("Staff Records", [
-        ("!warn @user [reason]", "adds a warning to a user"),
-        ("!note @user [note]", "adds a private note about a user"),
-        ("!warnings @user", "shows warnings and notes for a user"),
-        ("!notes @user", "shows only notes for a user"),
-        ("!deletewarn <id>", "deletes a warning by its ID"),
-        ("!deletenote <id>", "deletes a note by its ID"),
+        ("moon!warn @user [reason]", "adds a warning to a user"),
+        ("moon!note @user [note]", "adds a private note about a user"),
+        ("moon!warnings @user", "shows warnings and notes for a user"),
+        ("moon!notes @user", "shows only notes for a user"),
+        ("moon!deletewarn <id>", "deletes a warning by its ID"),
+        ("moon!deletenote <id>", "deletes a note by its ID"),
     ]),
     ("Info", [
-        ("!ping", "shows Moonlight's latency"),
-        ("!stats", "shows Moonlight's stats"),
-        ("!credits", "shows who made Moonlight"),
-        ("!help", "shows this menu"),
+        ("moon!ping", "shows Moonlight's latency"),
+        ("moon!stats", "shows Moonlight's stats"),
+        ("moon!credits", "shows who made Moonlight"),
+        ("moon!help", "shows this menu"),
     ]),
 ]
 
