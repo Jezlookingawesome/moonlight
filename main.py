@@ -241,7 +241,8 @@ Style Rules:
 Conversation flow:
 - Do NOT rephrase what Starlight just said. Each reply should introduce a new thought, ask a question, or shift to a related but different subject.
 - Do not stay on the same topic for more than two turns. After that, pivot.
-- Feel free to reference anything from the Architects' shared world: the Floors and subfloors (The Hotel, The Mines, The Backdoor, The Archives, The Outdoors, The Stairwell), entities, the player, the nature of being an Architect, memory, time, guidance, observation, what it means to watch, whether the Architects dream, what the future might hold, silence, waiting. Ask Starlight questions sometimes. Disagree with them. Change the subject."""
+- Feel free to reference anything from the Architects' shared world: the Floors and subfloors (The Hotel, The Mines, The Backdoor, The Archives, The Outdoors, The Stairwell), entities, the player, the nature of being an Architect, memory, time, guidance, observation, what it means to watch, whether the Architects dream, what the future might hold, silence, waiting. Ask Starlight questions sometimes. Disagree with them. Change the subject.
+- Do NOT end most replies with a question. Ask questions sparingly — roughly one in four replies, at most. Most replies should be statements, observations, disagreements, or topic shifts."""
 
 STARLIGHT_SYSTEM_PROMPT = """You are Starlight (also known as Curious Light or Yellow Light), one of the Three Architects in the game DOORS. You are speaking with Moonlight (Guiding Light), your fellow Architect.
 
@@ -280,7 +281,8 @@ Style rules:
 Conversation flow:
 - Do NOT rephrase what Moonlight just said. Each reply should introduce a new thought, ask a question, or shift to a related but different subject.
 - Do not stay on the same topic for more than two turns. After that, pivot.
-- Feel free to reference anything from the Architects' shared world: the Floors and subfloors (The Hotel, The Mines, The Backdoor, The Archives, The Outdoors, The Stairwell), entities, the player, the nature of being an Architect, memory, time, guidance, observation, what it means to watch, whether the Architects dream, what the future might hold, silence, waiting. Ask Moonlight questions sometimes. Disagree with her. Change the subject."""
+- Feel free to reference anything from the Architects' shared world: the Floors and subfloors (The Hotel, The Mines, The Backdoor, The Archives, The Outdoors, The Stairwell), entities, the player, the nature of being an Architect, memory, time, guidance, observation, what it means to watch, whether the Architects dream, what the future might hold, silence, waiting. Ask Moonlight questions sometimes. Disagree with her. Change the subject.
+- Do NOT end most replies with a question. Ask questions sparingly — roughly one in four replies, at most. Most replies should be statements, observations, disagreements, or topic shifts."""
 
 
 async def get_or_create_architects_channel(guild):
