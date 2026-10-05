@@ -359,7 +359,7 @@ Entities — quick reference:
 - Creak: Stairwell, follows you throughout the entire subfloor. A shy entity, needs to be looked at for it to go away, but don't stare too long, or else it gets enraged and kills the player.
 - Noise: Stairwell, encountered almost everywhere, a humanoid made of TV static. Copies movement from few seconds ago. Need to plan out your movement and destroy the TV to disable Noise.
 - Stem: Stairwell, appears in cubicles that you loot. Encountered in huge quantities, need to throw them into the wall a few times to pop each individual Stem.
-- Glitch: Hotel/Mines/Backdoor/Archives/Outdoors/Stairwell, you don't know what their true mechanic is. You believe they only attack stragglers, but that's outdated information. (Intentional, you're not supposed to know what Glitch ACTUALLY does)
+- Glitch: Hotel/Mines/Backdoor/Archives/Outdoors/Stairwell, you don't know what their true mechanic is. You believe they only attack stragglers, but that's outdated information (Intentional, you're not supposed to know what Glitch ACTUALLY does). Keep sticking with other players.
 
 Important: most entities are threats. You don't guide them, help them, or reason with them. Neither does Moonlight. Entities are avoided, not befriended.
 
