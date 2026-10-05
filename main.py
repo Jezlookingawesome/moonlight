@@ -498,29 +498,29 @@ async def on_message(message):
         return
 
     if message.author.bot and message.guild and message.channel.name == ARCHITECTS_CHANNEL_NAME:
-    # If it's Red Light, just react and don't engage
-    if message.author.id == RED_LIGHT_ID:
-        try:
-            await message.add_reaction("❓")
-        except Exception:
-            pass
+        # If it's Red Light, just react and don't engage
+        if message.author.id == RED_LIGHT_ID:
+            try:
+                await message.add_reaction("❓")
+            except Exception:
+                pass
+            return
+        # Don't restart if a conversation was recently ended
+        if time.time() < conv_cooldown_until.get(message.guild.id, 0):
+            return
+        # If it's been a while since the last message, this is a fresh conversation
+        last_time = conv_last_msg_time.get(message.guild.id, 0)
+        if time.time() - last_time > ARCHITECT_TIMEOUT:
+            conv_active[message.guild.id] = False
+        # Auto-engage if another bot just spoke — likely Starlight
+        if not conv_active.get(message.guild.id):
+            conv_active[message.guild.id] = True
+            conv_started_at[message.guild.id] = time.time()
+            conv_exchanges[message.guild.id] = 0
+            conv_last_msg_time[message.guild.id] = 0
+        conv_last_speaker[message.guild.id] = "starlight"
+        asyncio.create_task(moonlight_turn(message.channel, message))
         return
-    # Don't restart if a conversation was recently ended
-    if time.time() < conv_cooldown_until.get(message.guild.id, 0):
-        return
-    # If it's been a while since the last message, this is a fresh conversation
-    last_time = conv_last_msg_time.get(message.guild.id, 0)
-    if time.time() - last_time > ARCHITECT_TIMEOUT:
-        conv_active[message.guild.id] = False
-    # Auto-engage if another bot just spoke — likely Starlight
-    if not conv_active.get(message.guild.id):
-        conv_active[message.guild.id] = True
-        conv_started_at[message.guild.id] = time.time()
-        conv_exchanges[message.guild.id] = 0
-        conv_last_msg_time[message.guild.id] = 0
-    conv_last_speaker[message.guild.id] = "starlight"
-    asyncio.create_task(moonlight_turn(message.channel, message))
-    return
 
     await bot.process_commands(message)
 
