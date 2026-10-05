@@ -33,6 +33,13 @@ DEFAULT_PURGE_AMOUNT = 200
 MAX_PURGE_AMOUNT = 200
 
 DEVELOPER_ID = 1478853756874395762
+
+
+def is_dev_or_owner():
+    async def predicate(ctx):
+        return ctx.author.id == DEVELOPER_ID or ctx.author.id == ctx.guild.owner_id
+    return commands.check(predicate)
+    
 RED_LIGHT_ID = 1556391554221080586
 CRUCIFIXION_GIF_URL = "https://raw.githubusercontent.com/Jezlookingawesome/moonlight/main/ezgif-464c562dc7a53ec6.gif"
 
@@ -964,6 +971,21 @@ async def credits(ctx):
     )
 
 
+@bot.command()
+@is_dev_or_owner()
+async def say(ctx, *, text: str = None):
+    if text is None:
+        await ctx.reply(f"Usage: `moon!say <text>` — {MOONLIGHT_EMOJI}")
+        return
+    try:
+        await ctx.message.delete()
+    except Exception:
+        pass
+    await ctx.send(f"{MOONLIGHT_EMOJI} {text}")
+
+
+
+
 @bot.command(name="help")
 async def help_command(ctx):
     embed = build_help_embed()
@@ -981,6 +1003,10 @@ async def on_command_error(ctx, error):
     else:
         print(f"Command error: {error}")
 
+
+if isinstance(error, commands.CheckFailure):
+    await ctx.reply("You can't use that command.")
+    return
 
 try:
     bot.run(TOKEN)
