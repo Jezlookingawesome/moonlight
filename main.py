@@ -87,7 +87,7 @@ HELP_LINES = [
 def build_help_embed():
     embed = discord.Embed(
         title=f"{MOONLIGHT_EMOJI} MOONLIGHT — COMMANDS",
-        description="**Prefix: !**",
+        description="**Prefix: moon!**",
         color=HELP_COLOR,
     )
     for section, commands in HELP_LINES:
