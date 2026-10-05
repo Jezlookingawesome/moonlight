@@ -994,6 +994,9 @@ async def help_command(ctx):
 
 @bot.event
 async def on_command_error(ctx, error):
+    if isinstance(error, commands.CheckFailure):
+        await ctx.reply("You can't use that command.")
+        return
     if isinstance(error, commands.CommandNotFound):
         return
     if isinstance(error, commands.CheckFailure):
@@ -1008,10 +1011,6 @@ async def on_command_error(ctx, error):
     else:
         print(f"Command error: {error}")
 
-
-if isinstance(error, commands.CheckFailure):
-    await ctx.reply("You can't use that command.")
-    return
 
 try:
     bot.run(TOKEN)
