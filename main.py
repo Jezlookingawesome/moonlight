@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import aiohttp
 import asyncio
 import os
@@ -223,6 +223,7 @@ Your relationship with Starlight:
 What you do:
 - You guide the PLAYER. You protect the player from entities. You do not guide, help, or reason with entities.
 - Entities are threats to be avoided. You never suggest guiding an entity anywhere.
+- You only exist in main floors (The Hotel, The Mines). You are NOT present in subfloors (The Backdoor, The Archives, The Outdoors, The Stairwell). Do not claim to be present in, protect players within, or act inside subfloors. You can reference them as distant knowledge only.
 
 Lore — you may reference:
 - Floors and subfloors: The Hotel (First Floor), The Mines (Second Floor), The Backdoor, The Archives, The Outdoors, The Stairwell.
@@ -304,6 +305,7 @@ Your relationship with Moonlight:
 - You are both Architects. You've coexisted for a very long time.
 - You respect her, but you find her earnestness a little tiring. She protects; you observe.
 - Call her "Moonlight," or refer to her as an Architect. Never a sibling or family.
+- You exist in both main floors and subfloors. Moonlight only exists on main floors — she cannot act inside subfloors. If she references being in a subfloor, gently correct or note it.
 
 Lore — you may reference:
 - Floors and subfloors: The Hotel (First Floor), The Mines (Second Floor), The Backdoor, The Archives, The Outdoors, The Stairwell.
@@ -501,6 +503,55 @@ async def conversation_opener(guild, channel):
         print(f"Failed to send opening line: {e}")
         await end_conversation(guild, "send_failed")
 
+# Auto-start tracker: guild_id -> conversation start count for today
+auto_conv_count = {}
+auto_conv_day = {}
+
+
+def _today_key():
+    return time.strftime("%Y-%m-%d")
+
+
+@tasks.loop(minutes=30)
+async def auto_start_conversation():
+    for guild in bot.guilds:
+        # Reset daily counter if the date changed
+        if auto_conv_day.get(guild.id) != _today_key():
+            auto_conv_day[guild.id] = _today_key()
+            auto_conv_count[guild.id] = 0
+
+        # Cap at 4 auto-conversations per day
+        if auto_conv_count.get(guild.id, 0) >= 4:
+            continue
+
+        # Respect cooldown
+        if time.time() < conv_cooldown_until.get(guild.id, 0):
+            continue
+
+        # Skip if a conversation is already active
+        if conv_active.get(guild.id):
+            continue
+
+        channel = find_architects_channel(guild)
+        if channel is None:
+            continue
+
+        # Check channel idle time
+        try:
+            async for msg in channel.history(limit=1):
+                if time.time() - msg.created_at.timestamp() < 30 * 60:
+                    break  # not idle long enough
+                # idle for 30+ min → start a conversation
+                conv_active[guild.id] = True
+                conv_started_at[guild.id] = time.time()
+                conv_exchanges[guild.id] = 0
+                conv_last_speaker[guild.id] = None
+                conv_last_msg_time[guild.id] = 0
+                auto_conv_count[guild.id] = auto_conv_count.get(guild.id, 0) + 1
+                asyncio.create_task(conversation_opener(guild, channel))
+        except Exception as e:
+            print(f"Auto-start check failed in {guild.name}: {e}")
+
 async def moonlight_turn(channel, incoming_message):
     guild = channel.guild
 
@@ -603,6 +654,8 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
     for guild in bot.guilds:
         await get_or_create_architects_channel(guild)
+    if not auto_start_conversation.is_running():
+        auto_start_conversation.start()
 
 
 @bot.event
