@@ -116,6 +116,9 @@ def format_uptime(seconds):
     parts.append(f"{seconds}s")
     return " ".join(parts)
 
+  def find_architects_channel(guild):
+    return discord.utils.get(guild.text_channels, name=ARCHITECTS_CHANNEL_NAME)
+
 
 def format_timestamp(ts: float) -> str:
     return f"<t:{int(ts)}:R>"
