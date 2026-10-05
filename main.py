@@ -994,6 +994,11 @@ async def help_command(ctx):
 
 @bot.event
 async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return
+    if isinstance(error, commands.CheckFailure):
+        await ctx.reply("You can't use that command.")
+        return
     if isinstance(error, commands.MissingPermissions):
         await moon_reply(ctx, "You don't have the permissions to use that command.")
     elif isinstance(error, commands.MemberNotFound):
